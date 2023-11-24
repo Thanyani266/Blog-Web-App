@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header'
+import Footer from './components/Footer'
 import Home from './pages/Home'
 import AddPost from './pages/AddPost'
 import EditPost from './pages/EditPost'
@@ -12,6 +13,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import './App.css'
 
 export const userContext = createContext()
 
@@ -41,6 +43,7 @@ const App = () => {
         <Route path='/login' element={<Login />}></Route>
         <Route path='*' element={<NotFound />}></Route>
       </Routes>
+      <Footer />
     </BrowserRouter>
     </userContext.Provider>
   );
