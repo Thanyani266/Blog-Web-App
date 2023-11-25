@@ -73,19 +73,20 @@ const View = () => {
     marginTop: '7px'
   }
   return (
-    <MDBContainer className='mx-auto mt-5 mb-5' style={{width: '70%'}}>
-      <Link to='/' ><strong>Go Back</strong></Link>
+    <MDBContainer style={{backgroundColor: '#ECEFF1', paddingTop: '8%', paddingBottom: '8%'}} fluid>
+    <MDBContainer className='mx-auto mb-5' style={{width: '70%'}}>
+      <Link to='/' ><strong className='btn btn-outline-dark'><MDBIcon far icon="caret-square-left" className='me-1'/>Go Back</strong></Link>
       <MDBTypography tag='h2' className='text-muted text-center mt-2'>{post && post.title}</MDBTypography>
       <img src={`http://localhost:5000/${post && post.file}`} 
       fluid='true' className='rounded' 
       alt={post && post.file} style={{width: '100%', maxHeight: '400px'}}/>
-      <div style={{marginTop: '20px'}}>
-        <div className='band align-items-center' style={{height: '43px', background: '#d6d6d6'}}>
+      <div style={{marginTop: '20px'}} className='mb-2'>
+        <div className='band align-items-center mb-3' style={{height: '43px', background: '#d6d6d6'}}>
           <MDBIcon style={{float: 'left'}} className='mt-4 ms-1' far icon='calendar-alt' size='lg'/>
           <strong style={{marginLeft: '4px', float: 'left', marginTop: '12px'}}>{post && post.modified}</strong>
           <Badge className='badge'  styleInfo={styleInfo}>{post && post.category}</Badge>
         </div>
-        <MDBTypography className='lead md-0 mb-3'>
+        <MDBTypography className='bg-light bg-opacity-25 lead shadow-5 p-4 md-0 mb-3' style={{color: '#757575'}}>
           {post && post.description}
         </MDBTypography>
         {
@@ -114,7 +115,7 @@ const View = () => {
           return (
         <MDBCol xl='4' md='6' key={index}>
         <Link to={`/view/${item.id}`} >
-         <MDBCard alignment='center' className='mt-5' style={{height: '450px'}}>
+         <MDBCard alignment='center' className='bg-info bg-opacity-25 mt-5' style={{height: '450px'}}>
            <MDBCardImage src={`http://localhost:5000/${item.file}`} fluid alt={item.file} style={{height: '200px'}}/>
            <MDBCardBody>
              <MDBCardTitle className='text-dark'>{item.title}</MDBCardTitle>
@@ -125,6 +126,7 @@ const View = () => {
         </MDBCol>)
         })}
       </MDBRow>
+    </MDBContainer>
     </MDBContainer>
   )
 }

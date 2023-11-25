@@ -2,10 +2,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color:  #E0F7FA;
 }
 
 .nav-bar .active {
-    background-color: brown;
+    background-color: transparent;
+    border: 2px solid #54B4D3;
 }
 
 .nav-bar p {
@@ -17,11 +19,21 @@
     list-style: none;
 }
 
+.nav-bar ul li .a-tag{
+    color: #332D2D;
+}
+
+.nav-bar ul .logout{
+    color: #332D2D;
+}
+
 .nav-bar ul li a:not(.active):hover {
-    background-color: blue;
+    background-color: #54B4D3;
+    color: #FFFFFF;
 }
 .nav-bar ul .logout:not(.active):hover {
-    background-color: blue;
+    background-color: #54B4D3;
+    color: #FFFFFF;
 }
 
 .menu ul {

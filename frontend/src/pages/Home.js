@@ -45,7 +45,7 @@ const Home = () => {
   console.log('data => ', data);
   
   return (
-    <MDBContainer breakpoint="sm">
+    <MDBContainer style={{backgroundColor: '#ECEFF1'}} fluid className='px-5 py-4'>
       <MDBContainer>
       <form className='d-flex input-group w-auto mx-auto mt-3' style={{maxWidth: '500px'}}>
             <MDBInput 
@@ -56,16 +56,17 @@ const Home = () => {
               onChange={(event) => setSearchValue(event.target.value)}/>
           </form>
       </MDBContainer>
-      <h4  className='text-center my-3'>Featured Posts</h4>
+      <h4  className='text-center mt-3'>Featured Posts</h4>
+      <hr className="hr hr-blurry" />
       <MDBRow className='text-align-center mb-3'>
         {data && data.filter(item => item.category.toLowerCase().includes(searchValue)).map((item, index) => {
           return (
-        <MDBCol xl='4' md='6' key={index} >
-         <MDBCard alignment='center' className='mt-5' style={{height: '450px'}}>
+        <MDBCol xl='4' md='6' key={index}>
+         <MDBCard alignment='center' className='bg-light bg-opacity-50 shadow-5 mt-5' style={{height: '450px'}}>
            <MDBCardImage src={`http://localhost:5000/${item.file}`} fluid alt={item.file} style={{height: '200px'}}/>
            <MDBCardBody>
              <MDBCardTitle>{(item.title).substring(0, 32)}...</MDBCardTitle>
-             <MDBCardText>{(item.description).substring(0, 50)}...<Link to={`/view/${item.id}`} style={{color: '#3cb371'}}>show more</Link></MDBCardText>
+             <MDBCardText>{(item.description).substring(0, 50)}...<Link to={`/view/${item.id}`} className='btn btn-outline-dark rounded-pill hover'><MDBIcon far icon="eye" className='me-1'/>see more</Link></MDBCardText>
              <Badge>{item.category}</Badge>
              {
                (user.username === item.username) ?

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
 import axios from 'axios'
-import {MDBInput, MDBTextArea} from 'mdb-react-ui-kit'
+import {MDBInput, MDBTextArea, MDBContainer, MDBTypography, MDBBtn} from 'mdb-react-ui-kit'
 import {toast} from 'react-toastify'
 
 const initialState = {
@@ -56,13 +56,16 @@ const EditPost = () => {
   } 
   console.log(state)
   return (
-    <div className='mx-5'>
-      <form style={{margin: '20%'}} onSubmit={handleSubmit}>
+    <MDBContainer style={{backgroundColor: '#ECEFF1'}} fluid className='py-5'>
+      <MDBContainer style={{maxWidth: '900px'}} className='bg-light bg-opacity-50 border rounded-5 p-5'>
+      <MDBTypography tag='h4' className='fw-bolder text-muted text-center mb-5'>Edit Blog Post</MDBTypography>
+      <form onSubmit={handleSubmit}>
         <MDBInput label='Title' id='title' type='text' name='title' value={title} onChange={handleInputChange} className='mb-2'/>
         <MDBTextArea label='Description' id='description' type='text' name='description' rows={4} value={description} onChange={handleInputChange} className='mb-2'/>
-        <MDBInput type='submit' value="Update" />    
+        <MDBBtn color='secondary' type='submit' className='w-100 btn-sec text-dark'>update post</MDBBtn>
     </form>
-    </div>
+    </MDBContainer>
+    </MDBContainer>
   )
 }
 

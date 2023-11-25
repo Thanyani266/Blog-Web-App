@@ -30,9 +30,9 @@ const Header = () => {
   
   return (
     <>
-    <MDBNavbar expand='lg' light bgColor='light' className='nav-bar'>
+    <MDBNavbar expand='lg' light className='nav-bar'>
         <MDBContainer fluid>
-        <Link to='/'><MDBTypography tag='p' className='fw-bold fs-4 mt-3 mx-2'>BlogSite</MDBTypography></Link>
+        <Link to='/'><MDBTypography tag='p' className='fw-bold fs-4 mt-3 mx-2' style={{color: '#757575'}}>BlogSite</MDBTypography></Link>
           
           <MDBNavbarToggler
             type='button'
@@ -48,31 +48,31 @@ const Header = () => {
             <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
             <MDBTypography tag='ul' className='d-flex align-items-center mx-auto'>
         <MDBTypography tag='li' className='mx-2'>
-            <NavLink to='/' className='text-dark text-uppercase p-1'>Home</NavLink>
+            <NavLink to='/' className='text-uppercase p-1 a-tag'>Home</NavLink>
         </MDBTypography>
         
         {
           user.username ? 
           <MDBTypography tag='li' className='mx-2'>
-          <NavLink to='/add' className='text-dark text-uppercase p-1'>New Post</NavLink> 
+          <NavLink to='/add' className='text-uppercase a-tag p-1'>New Post</NavLink> 
           </MDBTypography> : ""
 
         }
         
         <MDBTypography tag='li' className='mx-2'>
-        <NavLink to='/about' className='text-dark text-uppercase p-1'>About</NavLink>
+        <NavLink to='/about' className='text-uppercase a-tag p-1'>About</NavLink>
         </MDBTypography>
         {
           user.username ? 
-          <MDBTypography tag='li' onClick={handleLogout} className='text-dark text-uppercase mx-2 logout' style={{cursor: 'pointer'}}>
+          <MDBTypography tag='li' onClick={handleLogout} className='text-uppercase mx-2 logout' style={{cursor: 'pointer'}}>
               <span className='p-1'>Logout</span>
             </MDBTypography> :
           <>
           <MDBTypography tag='li' className='mx-2'>
-            <NavLink to='/login' className='text-dark text-uppercase p-1'>Login</NavLink>
+            <NavLink to='/login' className='a-tag text-uppercase p-1'>Login</NavLink>
         </MDBTypography>
           <MDBTypography tag='li' className='mx-3'>
-            <NavLink to='/register' className='text-dark text-uppercase p-1'>Register</NavLink>
+            <NavLink to='/register' className='a-tag text-uppercase p-1'>Register</NavLink>
         </MDBTypography>
         </>
           

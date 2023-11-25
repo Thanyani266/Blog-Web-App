@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react'
 import axios from 'axios'
-import {MDBInput, MDBTextArea} from 'mdb-react-ui-kit'
+import {MDBInput, MDBTextArea, MDBContainer, MDBTypography, MDBBtn} from 'mdb-react-ui-kit'
 import {toast} from 'react-toastify'
 import { userContext } from '../App'
 
@@ -39,8 +39,10 @@ const AddPost = () => {
   }
   console.log(category);
   return (
-    <div className='mx-5'>
-      <form style={{margin: '15% 20%'}} onSubmit={handleSubmit}>
+    <MDBContainer style={{backgroundColor: '#ECEFF1'}} fluid className='py-5'>
+      <MDBContainer style={{maxWidth: '900px'}} className='bg-light bg-opacity-50 border rounded-5 p-5'>
+      <MDBTypography tag='h4' className='fw-bolder text-muted text-center mb-5'>New Blog Post</MDBTypography>
+      <form onSubmit={handleSubmit}>
         <MDBInput label='Title' id='title' type='text' name='title' value={title} onChange={(event) => setTitle(event.target.value)} className='mb-2'/>
         <MDBTextArea label='Description' id='description' type='text' name='description' rows={4} value={description} onChange={(event) => setDescription(event.target.value)} className='mb-2'/>
         <MDBInput id='file' type='file' onChange={(event) => setFile(event.target.files[0])} className='mb-2'/>
@@ -52,9 +54,10 @@ const AddPost = () => {
             </option>
           ))}
         </select>
-        <MDBInput type='submit' value="Add" />    
+        <MDBBtn color='secondary' type='submit' className='w-100 btn-sec text-dark'>Add Post</MDBBtn>
     </form>
-    </div>
+    </MDBContainer>
+    </MDBContainer>
   )
 }
 
