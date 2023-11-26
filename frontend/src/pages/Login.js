@@ -1,6 +1,6 @@
 import { MDBBtn, MDBCardFooter, MDBContainer, MDBInput, MDBTypography } from 'mdb-react-ui-kit'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 axios.defaults.withCredentials = true
@@ -8,12 +8,14 @@ axios.defaults.withCredentials = true
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate()
 
     const login = async (data) => {
-        const response = await axios.post('http://localhost:5000/login', data, {withCredentials: true});
+        await axios.post('http://localhost:5000/login', data, {withCredentials: true});
         localStorage.setItem('login', JSON.stringify({"userLogin": "True"}))
         toast.success("Logged in successfully")
-        console.log(response.data);
+        navigate('/')
+        window.location.reload(true)
     }
 
     const handleSubmit = async (event) => {
@@ -22,9 +24,9 @@ const Login = () => {
             toast.error("Please provide value into each input field")
         }else{
             login({email, password})
-            //window.location.href = ('/')
         } 
     }
+    
   return (
     <MDBContainer style={{backgroundColor: '#ECEFF1', paddingTop: '8%', paddingBottom: '8%'}} fluid>
     <MDBContainer style={{maxWidth: '600px'}} className='bg-light bg-opacity-50 border rounded-5'>

@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react'
 import axios from 'axios'
-import {MDBInput, MDBTextArea, MDBContainer, MDBTypography, MDBBtn} from 'mdb-react-ui-kit'
+import {MDBInput, MDBContainer, MDBTypography, MDBBtn, MDBTextArea} from 'mdb-react-ui-kit'
 import {toast} from 'react-toastify'
 import { userContext } from '../App'
 
@@ -37,7 +37,7 @@ const AddPost = () => {
         window.location.href = '/'
     } 
   }
-  console.log(category);
+  
   return (
     <MDBContainer style={{backgroundColor: '#ECEFF1'}} fluid className='py-5'>
       <MDBContainer style={{maxWidth: '900px'}} className='bg-light bg-opacity-50 border rounded-5 p-5'>

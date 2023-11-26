@@ -1,4 +1,5 @@
 import React from 'react';
+import {useLocation} from 'react-router-dom'
 import {
   MDBFooter,
   MDBContainer,
@@ -7,8 +8,12 @@ import {
 } from 'mdb-react-ui-kit';
 
 const Footer = () => {
+  let path = useLocation();
+  if(path.pathname.includes('view')){
+    return null
+  }
   return (
-    <MDBFooter className='text-center text-white mt-5' style={{ backgroundColor: '#f1f1f1' }}>
+    <MDBFooter className='text-center text-white bg-primary bg-opacity-25'>
       <MDBContainer className='pt-4'>
         <section className='mb-4'>
           <MDBBtn
@@ -62,9 +67,9 @@ const Footer = () => {
         </section>
       </MDBContainer>
 
-      <div className='text-center text-dark p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
+      <div className='text-center text-light p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
         © 2023 Copyright:
-        <a className='text-dark ms-1' href='https://mdbootstrap.com/'>
+        <a className='text-light ms-1' href='https://mdbootstrap.com/'>
           BlogSite.com
         </a>
       </div>

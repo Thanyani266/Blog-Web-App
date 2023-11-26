@@ -62,16 +62,13 @@ const View = () => {
   const filteredData = data.filter(post => post.id !== id)
   const dataByCategory = filteredData.filter(item => item.category === (post && post.category))
 
-  console.log('data by category => ', dataByCategory);
-
- 
-
   const styleInfo = {
     display: 'inline',
     marginRight: '5px',
     float: 'right',
     marginTop: '7px'
   }
+
   return (
     <MDBContainer style={{backgroundColor: '#ECEFF1', paddingTop: '8%', paddingBottom: '8%'}} fluid>
     <MDBContainer className='mx-auto mb-5' style={{width: '70%'}}>
@@ -104,8 +101,8 @@ const View = () => {
       </div>
       {
         (user.username === (post && post.username)) ?
-        <MDBCardFooter className='text-muted text-center'>Author: You ({post && post.username})</MDBCardFooter> :
-        <MDBCardFooter className='text-muted text-center'>Author: {post && post.username}</MDBCardFooter>
+        <MDBCardFooter className='text-muted text-center'>Author: You <span className='text-capitalize bg-dark bg-opacity-25 text-light rounded-pill px-2'>{post && post.username}</span></MDBCardFooter> :
+        <MDBCardFooter className='text-muted text-center'>Author: <span className='text-capitalize'>{post && post.username}</span></MDBCardFooter>
       }
       
       <hr className='text-success fw-bold'/>
@@ -115,7 +112,10 @@ const View = () => {
           return (
         <MDBCol xl='4' md='6' key={index}>
         <Link to={`/view/${item.id}`} >
-         <MDBCard alignment='center' className='bg-info bg-opacity-25 mt-5' style={{height: '450px'}}>
+         <MDBCard onClick={() => {
+           window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+           }}
+           alignment='center' className='bg-info bg-opacity-25 mt-5' style={{height: '450px'}}>
            <MDBCardImage src={`http://localhost:5000/${item.file}`} fluid alt={item.file} style={{height: '200px'}}/>
            <MDBCardBody>
              <MDBCardTitle className='text-dark'>{item.title}</MDBCardTitle>

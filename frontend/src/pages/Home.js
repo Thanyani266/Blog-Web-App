@@ -41,27 +41,24 @@ const Home = () => {
     }
   }
   
-
-  console.log('data => ', data);
-  
   return (
     <MDBContainer style={{backgroundColor: '#ECEFF1'}} fluid className='px-5 py-4'>
-      <MDBContainer>
-      <form className='d-flex input-group w-auto mx-auto mt-3' style={{maxWidth: '500px'}}>
+      <MDBContainer className='bg-light bg-opacity-50 shadow-5 py-2'>
+      <form className='d-flex input-group w-auto mx-auto' style={{maxWidth: '500px'}}>
             <MDBInput 
               type='search'
-              label='Filter Posts' 
+              label='Filter Blogs' 
               placeholder='Filter by Category(Travel, Fashion, Fitness, Sports, Food, Tech)' 
               aria-label='Search' 
               onChange={(event) => setSearchValue(event.target.value)}/>
           </form>
       </MDBContainer>
-      <h4  className='text-center mt-3'>Featured Posts</h4>
+      <h4  className='text-center mt-3'>Featured Blogs</h4>
       <hr className="hr hr-blurry" />
       <MDBRow className='text-align-center mb-3'>
         {data && data.filter(item => item.category.toLowerCase().includes(searchValue)).map((item, index) => {
           return (
-        <MDBCol xl='4' md='6' key={index}>
+            <MDBCol xl='4' md='6' key={index}>
          <MDBCard alignment='center' className='bg-light bg-opacity-50 shadow-5 mt-5' style={{height: '450px'}}>
            <MDBCardImage src={`http://localhost:5000/${item.file}`} fluid alt={item.file} style={{height: '200px'}}/>
            <MDBCardBody>
@@ -70,7 +67,7 @@ const Home = () => {
              <Badge>{item.category}</Badge>
              {
                (user.username === item.username) ?
-               <span className='mt-4'>
+               <span className='mt-2'>
                <MDBBtn color='none' style={{border: 'none'}} onClick={() => deletePost(item.id)}>
                 <MDBIcon fas icon='trash' color='danger' size='lg'/>
                </MDBBtn>
@@ -81,7 +78,10 @@ const Home = () => {
              }
              
            </MDBCardBody>
-           <MDBCardFooter className='text-muted'>Posted {moment(item.modified).fromNow()}</MDBCardFooter>
+           {(user.username === item.username) ?
+           <MDBCardFooter style={{marginTop: '-10%'}} className='text-muted'>Posted {moment(item.modified).fromNow()}</MDBCardFooter> :
+           <MDBCardFooter className='text-muted'>Posted {moment(`${item.modified}`).fromNow()}</MDBCardFooter>
+           }
          </MDBCard>
         </MDBCol>)
         })}
