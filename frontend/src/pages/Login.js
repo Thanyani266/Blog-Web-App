@@ -11,11 +11,15 @@ const Login = () => {
     const navigate = useNavigate()
 
     const login = async (data) => {
-        await axios.post('http://localhost:5000/login', data, {withCredentials: true});
-        localStorage.setItem('login', JSON.stringify({"userLogin": "True"}))
-        toast.success("Logged in successfully")
-        navigate('/')
-        window.location.reload(true)
+        const response = await axios.post('http://localhost:5000/login', data, {withCredentials: true});
+        console.log(response.status);
+        if(response.data !== "Email is not valid!" && response.data !== "Password is Incorrect!"){
+          localStorage.setItem('login', JSON.stringify({"userLogin": "True"}))
+          navigate('/')
+          window.location.reload(true)
+        }else{
+          toast.error(response.data)
+        }  
     }
 
     const handleSubmit = async (event) => {

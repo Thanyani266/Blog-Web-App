@@ -68,7 +68,7 @@ const handleLogin = async (req, res) => {
         res.cookie('jwt', refreshToken)
         res.json(req.cookies)
     }else{
-        res.sendStatus(401)
+        res.send("Password is Incorrect!")
     }
 }
 
