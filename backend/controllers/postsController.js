@@ -2,7 +2,6 @@
 const fsPromises = require('fs').promises
 const path = require('path')
 const { v4 : uuid } = require('uuid')
-const { format } = require('date-fns')
 
 // Setting the posts data in our local database
 const data = {
@@ -25,14 +24,13 @@ const createPost = async (req, res) => {
         category: req.body.category,
         username: req.body.username
     }
-    console.log(post.file)
-    const newPost = {...post, id: uuid(), modified: `${new Date()}`};
+    
+    const newPost = {...post, id: uuid(), modified: new Date()};
     data.setPosts([...data.posts, newPost])
     await fsPromises.writeFile(
         path.join(__dirname, '..', 'models', 'posts.json'),
         JSON.stringify(data.posts)
     );
-    console.log(data.posts)
     res.status(201).json(data.posts) // 201 ==> created new record
     //const post = req.body
     //posts.push()
@@ -74,12 +72,4 @@ const updatePost = async (req, res) => {
     res.send("Post updated successfully")
 }
 
-// Posts of the same category as the post being read
-const getRelatedPost = (req, res) => {
-    const singlePost = data.posts.filter(post => post.id === req.params.id)
-    const relatedPost = data.posts.filter(post => post.category === singlePost.category)
-    res.send(relatedPost)
-}
-
-
-module.exports = { getPosts, createPost, getPost, deletePost, updatePost, getRelatedPost }
+module.exports = { getPosts, createPost, getPost, deletePost, updatePost }

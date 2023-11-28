@@ -46,7 +46,7 @@ const handleLogin = async (req, res) => {
     // Evaluate password
     const match = await bcrypt.compare(password, foundUser.password)
     if (match) {
-        // create JWTs
+        // create JWTs (Only used refresh tocken)
         const accessToken = jwt.sign(
             {"email": foundUser.email},
             process.env.ACCESS_TOKEN_SECRET,
@@ -83,7 +83,7 @@ const handleLogout = async (req, res) => {
     // is refreshtoken in db
     const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken)
     if(!foundUser) {
-        res.clearCookie('jwt', refreshToken)//{httpOnly: true, maxAge: 24 * 60 * 60 * 1000})
+        res.clearCookie('jwt', refreshToken)// not {httpOnly: true, maxAge: 24 * 60 * 60 * 1000})
         return res.sendStatus(204); 
     }
 
@@ -126,51 +126,6 @@ const handleRefreshToken = (req, res) => {
     );
 }
 
-// Verifying the user
-const verifyUser = (req, res, next) => {
-    const cookies = req.cookies
-    if (!cookies?.jwt) return res.sendStatus(401);
-    console.log(cookies.jwt);
-    const refreshToken = cookies.jwt
-
-    // Finding the logged user
-    const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken)
-    console.log(foundUser)
-    if(!foundUser) return res.sendStatus(403); 
-
-    // Evaluate jwt
-    jwt.verify(
-        refreshToken,
-        process.env.REFRESH_TOKEN_SECRET,
-        (err, decoded) => {
-            if (err || foundUser.email != decoded.email) return res.sendStatus(403);
-            req.email = decoded.email;
-            next();
-        }
-    );
-    /*
-    jwt.verify(
-        refreshToken,
-        process.env.ACCESS_TOKEN_SECRET,
-        (err, decoded) => {
-            if(err) return res.sendStatus(403); // invalid token
-            req.email = decoded.email;
-            req.username = decoded.username;
-            next();
-        }
-    );
-    const token = authHeader.split(' ')[1];
-    jwt.verify(
-        token,
-        process.env.ACCESS_TOKEN_SECRET,
-        (err, decoded) => {
-            if(err) return res.sendStatus(403); // invalid token
-            req.user = decoded.username;
-            next();
-        }
-    ); */
-}
-
 // Currently logged user information
 const userInfo = (req, res) => { 
     const cookies = req.cookies
@@ -185,4 +140,4 @@ const userInfo = (req, res) => {
     res.json(foundUser)
 }
 
-module.exports = { handleNewUser, handleLogin, userInfo, handleRefreshToken, handleLogout, verifyUser }
+module.exports = { handleNewUser, handleLogin, userInfo, handleRefreshToken, handleLogout}

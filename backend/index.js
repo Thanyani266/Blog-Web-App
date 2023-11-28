@@ -4,6 +4,8 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const postsRoutes = require('./routes/posts')
 const usersRoutes = require('./routes/users')
+const commentsRoutes = require('./routes/comments')
+
 const cookieParser = require('cookie-parser')
 const path = require('path')
 
@@ -31,6 +33,7 @@ app.use(express.static('images'))
 // Routes for users and posts 
 app.use('/', postsRoutes)
 app.use('/', usersRoutes)
+app.use('/', commentsRoutes)
 
 // Routes
 app.get('/', (req, res) => res.send("Hello from express server"));
