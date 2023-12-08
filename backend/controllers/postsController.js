@@ -61,8 +61,6 @@ const updatePost = async (req, res) => {
     post.title = req.body.title;
     post.description = req.body.description;
     post.category = req.body.category;
-    post.file = req.file.filename;
-    post.modified = req.body.modified  //format(new Date(), "dd MMM, HH:mm:ss");
 
     await fsPromises.writeFile(
         path.join(__dirname, '..', 'models', 'posts.json'),

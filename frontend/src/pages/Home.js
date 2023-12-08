@@ -40,7 +40,7 @@ const Home = () => {
       }
     }
   }
-  
+  console.log(data);
   return (
     <MDBContainer style={{backgroundColor: '#ECEFF1'}} fluid className='px-5 py-4'>
       <MDBContainer className='bg-light bg-opacity-50 shadow-5 py-2'>
@@ -62,8 +62,8 @@ const Home = () => {
          <MDBCard alignment='center' className='bg-light bg-opacity-50 shadow-5 mt-5' style={{height: '450px'}}>
            <MDBCardImage src={`http://localhost:5000/${item.file}`} fluid alt={item.file} style={{height: '200px'}}/>
            <MDBCardBody>
-             <MDBCardTitle>{(item.title).substring(0, 32)}...</MDBCardTitle>
-             <MDBCardText>{(item.description).substring(0, 50)}...<Link to={`/view/${item.id}`} className='btn btn-outline-dark rounded-pill hover'><MDBIcon far icon="eye" className='me-1'/>see more</Link></MDBCardText>
+             <MDBCardTitle className='blog-title text-uppercase bg-light border'>{(item.title)}</MDBCardTitle>
+             <MDBCardText><span className='blog-desc' dangerouslySetInnerHTML={{__html: item.description}} /><Link to={`/view/${item.id}`} className='btn btn-outline-dark rounded-pill hover'><MDBIcon far icon="eye" className='me-1'/>see more</Link></MDBCardText>
              <Badge>{item.category}</Badge>
              {
                (user.username === item.username) ?
@@ -71,7 +71,7 @@ const Home = () => {
                <MDBBtn color='none' style={{border: 'none'}} onClick={() => deletePost(item.id)}>
                 <MDBIcon fas icon='trash' color='danger' size='lg'/>
                </MDBBtn>
-               <Link to={`/update/${item.id}`} style={{marginLeft: '10px'}}><MDBBtn color='none' style={{border: 'none'}}>
+               <Link to={`/update?edit=${item.id}`} state={item} style={{marginLeft: '10px'}}><MDBBtn color='none' style={{border: 'none'}}>
                   <MDBIcon fas icon='edit'  size='lg' style={{color: '#55acee'}}/>
                </MDBBtn></Link>
              </span> : ''

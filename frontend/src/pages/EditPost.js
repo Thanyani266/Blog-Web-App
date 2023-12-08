@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import {useParams, useNavigate} from 'react-router-dom'
+import {useNavigate, useLocation} from 'react-router-dom'
 import axios from 'axios'
-import {MDBInput, MDBTextArea, MDBContainer, MDBTypography, MDBBtn} from 'mdb-react-ui-kit'
+import {MDBInput, MDBContainer, MDBTypography, MDBBtn} from 'mdb-react-ui-kit'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 import {toast} from 'react-toastify'
 
 const options = ['Travel', 'Fashion', 'Fitness', 'Sports', 'Food', 'Tech']
@@ -13,13 +15,17 @@ const initialState = {
 }
 
 const EditPost = () => {
+  const stat = useLocation().state
+  const [title, setTitle] = useState(stat.title)
+  const [description, setDescription] = useState(stat.description)
+  const [file, setFile] = useState(stat.file)
+  const [category, setCategory] = useState(stat.category)
   const [state, setState] = useState(initialState);
-
-  const {title, description, category} = state;
+  
   const navigate = useNavigate()
 
-  const {id} = useParams()
-
+ // const {id} = useParams()
+  const id = stat.id
   
   useEffect(() => {
     if(id) {
@@ -48,28 +54,29 @@ const EditPost = () => {
         toast.error("Please provide value into each input field")
     }else{
         if(id) {
-            updatePost(id, state);
+            updatePost(id, {title, description, file, category});
         }
         navigate('/')
     } 
   }
   
-  
+  /*
   const handleInputChange = (event) => {
     let {name, value} = event.target;
     setState({...state, [name]: value})
-  }
+  } */
 
-  console.log(state) 
+  console.log(state.description) 
   return (
     <MDBContainer style={{backgroundColor: '#ECEFF1'}} fluid className='py-5'>
       <MDBContainer style={{maxWidth: '900px'}} className='bg-light bg-opacity-50 border rounded-5 p-5'>
       <MDBTypography tag='h4' className='fw-bolder text-muted text-center mb-5'>Edit Blog Post</MDBTypography>
       <form onSubmit={handleSubmit}>
-        <MDBInput label='Title' id='title' type='text' name='title' value={title} onChange={handleInputChange} className='mb-2'/>
-        <MDBTextArea label='Description' id='description' type='text' name='description' rows={4} value={description} onChange={handleInputChange} className='mb-2'/>
-        <select className='form-select mb-2' disabled defaultValue={category} onChange={handleInputChange}>
-          <option selected>{category}</option>
+        <MDBInput label='Title' id='title' type='text' name='title' value={title} onChange={(event) => setTitle(event.target.value)} className='mb-2'/>
+        <ReactQuill theme="snow" value={description} onChange={setDescription} className='mb-2'/>
+        <MDBInput id='file' type='file' onChange={(event) => setFile(event.target.files[0])} className='mb-2'/>
+        <select className='form-select mb-2' defaultValue={category} onChange={(event) => setCategory(event.target.value)}>
+          <option>{category}</option>
           {options.map((option, index) => (
             <option value={option} key={index}>
               {option}

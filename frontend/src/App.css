@@ -16,6 +16,20 @@
     color: #FFFFFF !important;
 }
 
+.blog-title {
+  color: #795548;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.blog-desc {
+  display: flex;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 @media screen and (max-width: 430px) {
     .band {
       display: none;

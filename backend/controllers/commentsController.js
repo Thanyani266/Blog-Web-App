@@ -37,9 +37,9 @@ const createComment = async (req, res) => {
 
 // Getting single comment based on the id
 const getComment = (req, res) => {
-    console.log(req.params.comment_id)
-    const singleComment = data.comments.filter(comment => comment.id === req.params.comment_id)
-    res.send(singleComment)
+    //console.log(req.params.comment_id)
+    //const singleComment = data.comments.filter(comment => comment.id === req.params.comment_id)
+    res.send(data.comments)
 }
 
 // Function to delete the comment

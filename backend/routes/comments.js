@@ -9,7 +9,7 @@ const router = express.Router({ mergeParams: false });
 // Comments routes
 router.get('/comments', getComments)
 router.post('/comment', createComment)
-router.get('/comment/:comment_id', getComment)
+router.get('/comment', getComment)
 router.delete('/comments', deleteComment)
 router.put('/comment/:comment_id', updateComment)
 //router.get('/post/:id', getRelatedPost)

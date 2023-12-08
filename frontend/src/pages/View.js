@@ -142,12 +142,12 @@ const View = () => {
           <Badge className='badge'  styleInfo={styleInfo}>{post && post.category}</Badge>
         </div>
         <MDBTypography className='bg-light bg-opacity-25 lead shadow-5 p-4 md-0 mb-3' style={{color: '#757575'}}>
-          {post && post.description}
+        <div dangerouslySetInnerHTML={{__html: post && post.description}} />
         </MDBTypography>
         {
           (user.username === (post && post.username)) ?
           <div style={{height: '50px'}}>
-          <Link to={`/update/${post && post.id}`}><MDBBtn style={{float: 'left', background: '#55acee'}}>
+          <Link to={`/update?edit=${post && post.id}`} state={post}><MDBBtn style={{float: 'left', background: '#55acee'}}>
           <MDBIcon fas icon='edit'  size='lg' color='white'/>
           </MDBBtn></Link>
           <MDBBtn style={{float: 'right'}} className='bg-danger' onClick={() => deletePost(post && post.id)}>
@@ -168,7 +168,7 @@ const View = () => {
               <MDBBtn onClick={handleClick} outline color='info' className='btn-sec btn-white'>Comments ({comments ? comments.length : 0})<MDBIcon fas icon="angle-double-down" /></MDBBtn>
           </MDBCardText>
               {/* 👇️ show elements on click */}
-      {isShown && (
+      {user.username ? isShown && (
         <div className='bg-light bg-opacity-50 mt-2 mb-3'>
           <form onSubmit={handleSubmitComment}>
         <MDBInput label='Enter new comment' id='comment' type='text' name='comment' value={comment} onChange={(event) => setComment(event.target.value)} className='mb-2'/>
@@ -176,7 +176,7 @@ const View = () => {
         <MDBBtn color='dark' outline type='submit' className='w-100 btn-sec text-dark'><MDBIcon far icon="plus-square" className='me-1'/>Add Comment</MDBBtn>    
     </form>
         </div>
-      )}
+      ) : ""}
       {/* 👇️ show component on click */}
     {isShown && comments?.map((item, index) => {
         return (
@@ -208,7 +208,7 @@ const View = () => {
            <MDBCardImage src={`http://localhost:5000/${item.file}`} fluid alt={item.file} style={{maxHeight: '150px'}}/>
            <MDBCardBody>
              <MDBCardTitle className='text-dark'>{item.title}</MDBCardTitle>
-             <MDBCardText className='text-muted'>{(item.description).substring(0, 50)}...</MDBCardText>
+             <MDBCardText className='text-muted'><span className='blog-desc' dangerouslySetInnerHTML={{__html: item.description}} /></MDBCardText>
            </MDBCardBody>
          </MDBCard>
          </Link>
